@@ -1,17 +1,17 @@
 ﻿@inject IRepositorio repositorio
 @inject NavigationManager navigationManager
 <h3>Agregar Persona</h3>
-<EditForm Model="personaUsuario"  OnInvalidSubmit="@Crear">
-    <DataAnnotationsValidator/>
+<EditForm Model="personaUsuario"  OnSubmit="@Crear">
+ 
         <div class="form-group">
         <label>Nombres</label>
         <InputText class="form-control" @bind-Value="@personaUsuario.Nombres"></InputText>
-        <ValidationMessage For="@(() => personaUsuario.Nombres)"/>
+        
     </div>
         <div class="form-group">
         <label>Apellidos</label>
         <InputText class="form-control" @bind-Value="@personaUsuario.Apellidos"></InputText>
-        <ValidationMessage For="@(() => personaUsuario.Apellidos)"/>
+ 
     </div>
         <div class="form-group">
         <label>Tipo de identificacion</label>
@@ -22,7 +22,7 @@
             <option value="Tarjeta de identidad">Tarjeta de identidad</option>
 
         </InputSelect>
-        <ValidationMessage For="@(() => personaUsuario.TipoIdentificacion)"/>
+       
     </div>
         <div class="form-group">
         <label>Numero de identificacion</label>
@@ -32,12 +32,10 @@
         <div class="form-group">
         <label>Email</label>
         <InputText class="form-control" @bind-Value="@personaUsuario.Email"></InputText>
-        <ValidationMessage For="@(() => personaUsuario.Email)"/>
     </div>
         <div class="form-group">
         <label>Fecha creación</label>
         <InputDate class="form-control" @bind-Value="@personaUsuario.FechaCreacion"></InputDate>
-        <ValidationMessage For="@(() => personaUsuario.FechaCreacion)"/>
     </div>
     <div class="form-group">
         <label>Usuario</label>
@@ -53,7 +51,7 @@
 
    @if(persona != null)
     {
-        @if(isError == false)
+        @if(isError)
         {
             <div class="alert alert-info mt-3" role="alert">
                 <p>Ha ocurrido un error</p>
