@@ -1,0 +1,49 @@
+﻿@inject IRepositorio repositorio
+@inject NavigationManager navigationManager
+<h3>Consultar usuario</h3>
+<EditForm Model="usuario"  OnSubmit="@Crear">
+        <div class="form-group">
+        <label>Nombres</label>
+        <InputText class="form-control" @bind-Value="@usuario.User"></InputText>
+    </div>
+        <div class="form-group">
+        <label>Apellidos</label>
+        <InputText class="form-control" @bind-Value="@usuario.Pass"></InputText>
+        </div>
+    <button type="submit" class="btn btn-dark">Guardar</button>
+  
+   @if(@resultadoConsulta != "")
+    {
+        <div class="alert alert-info mt-3" role="alert">
+            <p>@resultadoConsulta</p>
+        </div>
+    }
+    
+    
+</EditForm>
+
+@code {
+
+    private UsuarioDto usuario = new UsuarioDto();
+    private string resultadoConsulta="";
+
+    private async Task Crear()
+    {
+        var httpResponse= await repositorio.Post<UsuarioDto>($"https://localhost:7044/usuario/obtenerusuario", usuario);
+        
+        
+        if (httpResponse.Error)
+        {
+            resultadoConsulta = await httpResponse.HttpResponseMessage.Content.ReadAsStringAsync();
+            Console.WriteLine(resultadoConsulta);
+        }
+        else
+        {
+            resultadoConsulta = await httpResponse.HttpResponseMessage.Content.ReadAsStringAsync();
+           Console.WriteLine(resultadoConsulta);
+        }
+        Console.WriteLine("OK");
+       
+    }
+
+}
